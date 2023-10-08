@@ -36,10 +36,11 @@ namespace Knowledge
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Knowledge", Version = "v1" });
             });
-
+            services.AddHostedService<UrlStatusBackgroundService>();
             services
                 .AddSingleton<GuidService>()
                 .AddScoped<UserRepository>()
+                .AddScoped<UrlStatusBackgroundService>()
                 .TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             var str = Configuration[ConfigSettingPlatformContext];
             services

@@ -19,3 +19,6 @@ docker build -t my-api .
 docker rm my-api-container
 docker run -d -p 8080:80 --name my-api-container my-api
 
+ docker system prune
+
+docker-compose -f docker-compose.yml up -d --build

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Knowledge.Migrations.Migrations
 {
     [DbContext(typeof(BaseAppDbContext))]
-    [Migration("20230930151307_initDB")]
-    partial class initDB
+    [Migration("20231008153023_initdb")]
+    partial class initdb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -42,6 +42,22 @@ namespace Knowledge.Migrations.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("AssignedUserRole");
+                });
+
+            modelBuilder.Entity("Knowledge.Models.Models.Entities.Link", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<string>("URL")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Link");
                 });
 
             modelBuilder.Entity("Knowledge.Models.Models.Entities.User", b =>

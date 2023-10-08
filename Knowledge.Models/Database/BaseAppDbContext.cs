@@ -7,7 +7,7 @@ namespace Knowledge.Models.Database
     public class BaseAppDbContext : DbContext
     {
         public DbSet<User> Users { get; set; }
-
+        public DbSet<Link> Links { get; set; }
         public BaseAppDbContext(
             DbContextOptions options
         ) : base(options)

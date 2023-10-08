@@ -42,6 +42,22 @@ namespace Knowledge.Migrations.Migrations
                     b.ToTable("AssignedUserRole");
                 });
 
+            modelBuilder.Entity("Knowledge.Models.Models.Entities.Link", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<string>("URL")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Link");
+                });
+
             modelBuilder.Entity("Knowledge.Models.Models.Entities.User", b =>
                 {
                     b.Property<Guid>("Id")
