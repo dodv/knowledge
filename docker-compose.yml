@@ -1,0 +1,50 @@
+version: '3.8'
+
+x-fm-environment: &kn-env
+  KNOWLEDGE_ConnectionStrings__PlatformContext : "Server=db; Database=LocalDevDb; User Id=sa; Password=<YourStrong!Passw0rd>;"
+
+services:
+  db:
+    container_name: knowledge_compose_db
+    image: mcr.microsoft.com/mssql/server:2017-latest
+    ports:
+      - "8081:1433"
+    expose:
+      - "1433"
+    networks:
+      knl_app_net:
+        ipv4_address: 172.16.238.2
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: <YourStrong!Passw0rd>
+      
+  api:
+    depends_on:
+      - db
+    build:
+      context: .
+      args:
+        artifactoryUsername: ${ARTIFACTORY_USERNAME}
+        artifactoryPassword: ${ARTIFACTORY_PASSWORD}
+        buildMode: ${FORTROBOENV_BuildMode}
+    container_name: knowledge_compose_api
+    ports:
+      - "8001:80"
+    dns:
+      - 8.8.8.8
+      - 1.1.1.1
+    networks:
+      knl_app_net:
+        ipv4_address: 172.16.238.4
+    environment: *kn-env
+
+# setting up a network instead of the default so azurite can be accessed via ip address 
+# due to: https://github.com/Azure/Azurite/issues/379
+networks:
+  knl_app_net:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.16.238.0/24
+      
+          
