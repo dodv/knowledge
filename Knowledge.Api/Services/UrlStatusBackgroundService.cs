@@ -52,9 +52,10 @@ namespace Knowledge.Api.Services
                         await dbContext.SaveChangesAsync();
                     }
                 }
+                // Wait for the specified interval before processing the next batch of URLs
+                await Task.Delay(_interval, stoppingToken);
             }
-            // Wait for the specified interval before processing the next batch of URLs
-            await Task.Delay(_interval, stoppingToken);
+            
         }
     }
 }
